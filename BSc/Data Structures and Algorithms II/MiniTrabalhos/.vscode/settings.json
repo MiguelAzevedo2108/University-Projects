@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "filesystem": "c",
+        "queue": "c",
+        "stack": "c",
+        "stack.h": "c",
+        "__tuple": "cpp",
+        "array": "cpp",
+        "estruturas.h": "c"
+    }
+}
