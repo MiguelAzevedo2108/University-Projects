@@ -1,0 +1,127 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include "queue.h"
+
+queue *queue_new(int maxelements,char *name) // contrutor queue
+{
+	queue *q=malloc(sizeof(queue));
+
+	strcpy(q->name,name);
+
+	q->capacity=maxelements;
+	q->size=0;
+	q->front=0;
+	q->rear=maxelements-1;
+	q->array = malloc(sizeof(pcb)*maxelements);
+
+	return q;
+}
+
+pcb *pcb_new(int id, queue *estado, int localizacao, int nr_ins)		//construtor pcb
+{
+	struct pcb *new = malloc(sizeof(struct pcb));
+
+	new->id = id;
+	new->programCounter = 0;
+	new->estado = estado;
+	new->localizacao=localizacao;
+	new->nr_ins=nr_ins;
+	return new;
+}
+
+bool isempty(queue *q)
+{
+	return (q->size==0);
+}
+
+void print_queue(queue *q)
+{
+	if(isempty(q))
+	{
+		printf("Vazio\n");
+		return;
+	}
+
+	int front,rear;
+	front=q->front;
+	rear=q->rear;
+
+	for(int i=front;i!=rear;i++)
+	{
+		if(i==q->capacity)
+		{
+			i=-1;
+			continue;
+		}
+
+		printf("id:%d\n",q->array[i]->id);
+	}
+	printf("id:%d\n",q->array[rear]->id);
+}
+
+
+bool isfull(queue *q)
+{
+	return (q->size==q->capacity);
+}
+
+
+
+void enqueue(queue *q, pcb *x)
+{
+	if(isfull(q))
+	{
+		return;
+	}
+
+	//atualiza o estado do pcb
+	x->estado=q;
+	q->rear=(q->rear + 1)%q->capacity;
+	q->array[q->rear]=x;
+	q->size=q->size + 1;
+}
+
+
+ pcb *dequeue(queue *q)
+ {
+ 	if(isempty(q))
+ 	{
+ 		return NULL;
+ 	}
+
+ 	pcb *x=q->array[q->front];
+ 	q->front=(q->front + 1)%q->capacity;
+ 	q->size=q->size-1;
+
+ 	return x;
+ }
+
+
+ pcb *front(queue *q)
+ {
+ 	if(isempty(q))
+ 	{
+ 		return NULL;
+ 	}
+
+ 	return q->array[q->front];
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
