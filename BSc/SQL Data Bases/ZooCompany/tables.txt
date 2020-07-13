@@ -1,0 +1,209 @@
+Drop Table esoecie CASCADE;
+
+CREATE TABLE especie(
+NomeE VARCHAR(15),
+Classe VARCHAR(15),
+PRIMARY KEY (NomeE)
+);
+
+
+DROP TABLE Animal CASCADE;
+
+CREATE TABLE Animal(
+NomeA VARCHAR(15),
+Genero VARCHAR(15),
+NomeE VARCHAR(15),
+PRIMARY KEY (NomeA),
+FOREIGN KEY (NomeE) REFERENCES especie ON DELETE CASCADE
+);
+
+
+DROP TABLE Compartimento CASCADE;
+
+CREATE TABLE Compartimento(
+IdComp Integer,
+Tipo VARCHAR(15),
+PRIMARY KEY (IdComp)
+);
+
+DROP TABLE Tratador CASCADE;
+
+CREATE TABLE Tratador(
+NCC Integer,
+NomeT VARCHAR(15),
+Salario Integer,
+NCCChefe Integer,
+PRIMARY KEY (NCC)
+);
+
+DROP TABLE Alojado CASCADE;
+
+CREATE TABLE Alojado(
+NomeA VARCHAR(15),
+IdComp Integer,
+PRIMARY KEY (IdComp),
+FOREIGN KEY (NomeA) REFERENCES Animal ON DELETE CASCADE,
+FOREIGN KEY (IdComp) REFERENCES Compartimento ON DELETE CASCADE
+);
+
+DROP TABLE Trata CASCADE;
+
+CREATE TABLE Trata(
+IdComp Integer,
+NCC Integer,
+PRIMARY KEY (NCC),
+FOREIGN KEY (IdComp) REFERENCES Compartimento ON DELETE CASCADE,
+FOREIGN KEY (NCC) REFERENCES Tratador ON DELETE CASCADE
+);
+
+
+
+
+--Inserts--
+
+
+-- 3 A --
+--A Foca Kiki, Mamifero, no compartimento 23 do tipo ’charco’.--
+
+INSERT INTO especie VALUES ('Foca','Mamifero');
+INSERT INTO Animal VALUES ('Kiki', 'Masculino', 'Foca');
+INSERT INTO Compartimento VALUES (23,'charco');
+
+
+-- 3 B --
+--A Foca Lola, no compartimento 23--
+
+INSERT INTO especie VALUES('Foca','Mamifero');
+INSERT INTO Animal VALUES('Lola','Feminino','Foca');
+INSERT INTO Alojado VALUES('Lola',23);
+
+-- 3 C --
+-- O Leao Marinho Anibal, Mamifero, no compartimento 23.--
+
+INSERT INTO especie VALUES ('Leao Marinho','Mamifero');
+INSERT INTO Animal VALUES ('Anibal','Masculino','Leao Marinho');
+INSERT INTO Alojado VALUES ('Anibal',23);
+
+-- 3 D --
+--A Lontra Amalia, Mamifero, , no compartimento 23.--
+
+INSERT INTO especie VALUES ('Lontra','Mamifero');
+INSERT INTO Animal VALUES ('Amalia','Feminino','Lontra');
+INSERT INTO Alojado VALUES ('Amalia',23);
+
+-- 3 E --
+--A Lontra Eusebio, masculino, no compartimento 23.--
+
+INSERT INTO especie VALUES ('Lontra','Mamifero');
+INSERT INTO Animal VALUES ('Eusebio','Masculino','Lontra');
+INSERT INTO Alojado VALUES ('Eusebio',23);
+
+-- 3 F --
+--O tratador Manuel responsavel pelo compartimento 23 
+--e pelo 10, tem o CC 123, ganha 750 euros e  ́e chefiado pelo Luis.--
+
+INSERT INTO Tratador VALUES (123,'Manuel',750,124);
+INSERT INTO Trata VALUES (23,123);
+INSERT INTO Compartimento VALUES (10,'selva');
+INSERT INTO Trata VALUES (10,123);
+
+-- 3 G --
+--O tratador Luis responsavel pelo compartimento 10 e 8 com o CC 124 e que ganha 850 euros.-
+
+INSERT INTO Tratador VALUES (124,'Luis',850,124);
+INSERT INTO Trata VALUES (10,124);
+INSERT INTO Compartimento VALUES (8,'pantano'); 
+INSERT INTO Trata VALUES (8,124);
+
+-- 3 H --
+--O Tigre Jau, Mamifero, no compartimento 10 do tipo ’selva’.--
+
+INSERT INTO especie VALUES ('Tigre','Mamifero');
+INSERT INTO Animal VALUES ('Jau','Masculino','Tigre');
+INSERT INTO Alojado VALUES ('Jau',10);
+
+-- 3 I --
+--O Tigre Princesa, feminino, no compartimento 10.--
+
+INSERT INTO especie VALUES ('Tigre','Mamifero');
+INSERT INTO Animal VALUES ('Princesa','Feminino','Tigre');
+INSERT INTO Alojado VALUES ('Princesa',10);
+
+-- 3 J --
+--A Tartaruga Huga, Reptil, no compartimento 8 do tipo pantano.--
+
+INSERT INTO especie VALUES ('Tartaruga','Reptil');
+INSERT INTO Animal VALUES ('Huga','Feminino','Tartaruga');
+INSERT INTO Alojado VALUES ('Huga',8);
+
+
+
+-- 3 K --
+--A Tartaruga Luna, Reptil, no compartimento 8.--
+
+INSERT INTO especie VALUES ('Tartaruga','Reptil');
+INSERT INTO Animal VALUES ('Luna','Feminino','Tartaruga');
+INSERT INTO Alojado VALUES ('Luna',8);
+
+-- 3 L --
+--A lagartixa Brava, Reptil, no compartimento 8.--
+
+INSERT INTO especie VALUES ('Lagartixa','Reptil');
+INSERT INTO Animal VALUES ('Brava','Feminino','Lagartixa');
+INSERT INTO Alojado VALUES ('Brava',8);
+
+-- 3 M --
+--O Lagarto Raul, Reptil, no compartimento 8.--
+
+INSERT INTO especie VALUES ('Lagarto','Reptil');
+INSERT INTO Animal VALUES ('Raul','Masculino','Lagarto');
+INSERT INTO Alojado VALUES ('Raul',8);
+
+-- 3 N --
+--A tratadora Maria responsavel pelo compartimento 8 e 15 com o CC 125 e que ganha 850 euros e e chefiada pelo Luis.--
+
+INSERT INTO Tratador VALUES (125,'Maria',850,124);
+INSERT INTO Trata VALUES (8,125);
+INSERT INTO Compartimento VALUES(15,'gaiola');
+INSERT INTO Trata VALUES (15,125);
+
+-- 3 O --
+--O papagaio pirata, Ave, no compartimento 15 que e do tipo gaiola--
+
+INSERT INTO especie VALUES('Papagaio', 'Ave');
+INSERT INTO Animal VALUES('Pirata','Masculino','Papagaio');
+INSERT INTO Alojado VALUES('Pirata',15);
+
+
+-- 3 P --
+--O papagaio bela, no compartimento 15--
+
+INSERT INTO especie VALUES ('Papagaio','Ave');
+INSERT INTO Animal VALUES ('Bela','Feminino','Papagaio');
+INSERT INTO Alojado VALUES ('Bela',15);
+
+-- 3 Q --
+--A arara Joia, Ave, no compartimento 15--
+
+INSERT INTO especie VALUES('Arara','Ave');
+INSERT INTO Animal VALUES('Joia','Feminino','Arara');
+INSERT INTO Alojado VALUES('Joia',15);
+
+
+
+
+-- 4 -- 
+
+
+
+-- O Joao e responsavel pelo compartimento 15, com CC 007, chefiado pelo Luis, e ganha 625 euros.
+
+INSERT INTO Tratador VALUES (007,'Joao',625,124);
+INSERT INTO Trata VALUES (15,007);
+
+
+-- O cao Fred, Mamifero, no compartimento 7, do tipo canil --
+
+INSERT INTO especie VALUES('cao','Mamifero');
+INSERT INTO Animal VALUES ('Fred','Masculino','cao');
+INSERT INTO Compartimento VALUES (7,'canil');

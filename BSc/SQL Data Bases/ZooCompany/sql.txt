@@ -1,0 +1,72 @@
+-- 5a --
+
+select NomeE from especie;
+
+-- 5b-- 
+
+select Classe from especie 
+natural join Animal
+natural join Alojado
+natural join Trata
+natural join Tratador
+where Tratador.NomeT = 'Manuel';
+
+
+-- 5c --
+
+select NCCChefe from Tratador
+natural join Trata
+natural join Alojado
+natural join Animal
+natural join especie
+where especie.Classe = 'Reptil';
+
+-- 5d --
+
+select IdComp from Compartimento
+	
+Except
+ 	select IdComp from Compartimento
+	natural join Alojado
+	natural join Animal
+	natural join especie
+	where especie.Classe = 'Ave';
+
+-- 5 e --
+
+select IdComp from Compartimento
+	
+Except
+ 	select IdComp from Compartimento
+	natural join Alojado
+	natural join Animal
+	natural join especie
+	where especie.Classe = 'Ave';
+
+
+-- 5 f -- 
+
+select NomeT from Tratador
+
+Except
+	select NomeT from Tratador
+	natural	join Trata
+	natural join Compartimento
+	where Compartimento.tipo = 'pantano' or Compartimento.tipo = 'gaiola' ; 
+
+
+-- 5 g --
+
+select Count (NomeA) from Animal
+inner join especie 
+on Animal.NomeE = especie.nomeE 
+where especie.Classe = 'Mamifero';
+
+
+
+-- 5 L -- 
+
+select max (IdComp) from Compartimento
+natural join Alojado
+natural join Animal
+where Animal.Genero = 'Feminino';
