@@ -1,0 +1,14 @@
+maior () : int {
+  x : int = 2;
+  n : int = 10;
+
+  if n < x then { return x; }
+  else {
+    return n;
+  };
+};
+
+main () : void {
+  print(maior());
+};  
+
